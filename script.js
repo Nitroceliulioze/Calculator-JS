@@ -16,6 +16,10 @@ class Calculator {
     if (number === "." && this.currentOperand.includes(".")) {
       return;
     }
+    if (this.computeDone) {
+      this.currentOperand = ""
+      this.computeDone = false
+    }
     this.currentOperand = this.currentOperand.toString() + number.toString();
   }
   chooseOperation(operation) {
@@ -29,6 +33,7 @@ class Calculator {
   }
   compute() {
     let computation;
+    
     const prev = parseFloat(this.previousOperand);
     const current = parseFloat(this.currentOperand);
     if (isNaN(prev) || isNaN(current)) return;
@@ -51,6 +56,7 @@ class Calculator {
     this.currentOperand = computation;
     this.operation = undefined;
     this.previousOperand = "";
+    this.computeDone = true;
   }
 
   getDisplayNumber(number) {
